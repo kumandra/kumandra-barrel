@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/kumandra/kumandra-barrel/utils"
-	"github.com/kumandra/kumandra-barrel/keyring"
+	"github.com/kumandra/kumandra/go-keyring"
 )
 
 func verifysign(pkey, signmsg, sign []byte) (bool, error) {

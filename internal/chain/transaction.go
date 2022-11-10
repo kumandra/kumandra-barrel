@@ -44,7 +44,7 @@ func Register(api *gsrpc.SubstrateAPI, incomeAcc, ip string, port uint16, pledge
 		return txhash, errors.Wrap(err, "[GetMetadataLatest]")
 	}
 
-	b, err := tools.DecodeToKumandraPub(incomeAcc)
+	b, err := utils.DecodeToKumandraPub(incomeAcc)
 	if err != nil {
 		return txhash, errors.Wrap(err, "[DecodeToPub]")
 	}
@@ -58,7 +58,7 @@ func Register(api *gsrpc.SubstrateAPI, incomeAcc, ip string, port uint16, pledge
 
 	var ipType IpAddress
 
-	if tools.IsIPv4(ip) {
+	if utils.IsIPv4(ip) {
 		ipType.IPv4.Index = 0
 		ips := strings.Split(ip, ".")
 		for i := 0; i < 4; i++ {
@@ -454,7 +454,7 @@ func Withdraw(api *gsrpc.SubstrateAPI, identifyAccountPhrase, TransactionName st
 func SubmitProofs(data []ProveInfo) (string, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 	var (
@@ -569,7 +569,7 @@ func SubmitProofs(data []ProveInfo) (string, error) {
 func ClearInvalidFiles(fid FileHash) (string, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 	var (
@@ -666,7 +666,7 @@ func ClearInvalidFiles(fid FileHash) (string, error) {
 func ClearFiller(api *gsrpc.SubstrateAPI, signaturePrk string) (int, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 
@@ -760,7 +760,7 @@ func UpdateAddress(transactionPrK, ip, port string) (string, error) {
 
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 
@@ -781,7 +781,7 @@ func UpdateAddress(transactionPrK, ip, port string) (string, error) {
 
 	var ipType IpAddress
 
-	if tools.IsIPv4(ip) {
+	if utils.IsIPv4(ip) {
 		ipType.IPv4.Index = 0
 		ips := strings.Split(ip, ".")
 		for i := 0; i < 4; i++ {
@@ -887,7 +887,7 @@ func UpdateIncome(transactionPrK string, acc types.AccountID) (string, error) {
 	)
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 	api, err := NewRpcClient(configs.C.RpcAddr)

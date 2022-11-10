@@ -15,7 +15,7 @@ import (
 func GetMinerInfo(api *gsrpc.SubstrateAPI) (MinerInfo, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 
@@ -54,7 +54,7 @@ func GetMinerInfo(api *gsrpc.SubstrateAPI) (MinerInfo, error) {
 func GetChallenges() ([]ChallengesInfo, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 
@@ -120,7 +120,7 @@ func GetSchedulerPublicKey() (Chain_SchedulerPuk, error) {
 func GetInvalidFiles() ([]FileHash, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 
@@ -156,7 +156,7 @@ func GetInvalidFiles() ([]FileHash, error) {
 func GetSchedulingNodes() ([]SchedulerInfo, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 
@@ -192,7 +192,7 @@ func GetSchedulingNodes() ([]SchedulerInfo, error) {
 func GetBlockHeightExited(api *gsrpc.SubstrateAPI) (types.U32, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 
@@ -225,7 +225,7 @@ func GetBlockHeightExited(api *gsrpc.SubstrateAPI) (types.U32, error) {
 func GetBlockHeight(api *gsrpc.SubstrateAPI) (types.U32, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 	block, err := api.RPC.Chain.GetBlockLatest()
@@ -238,7 +238,7 @@ func GetBlockHeight(api *gsrpc.SubstrateAPI) (types.U32, error) {
 func GetAccountInfo(puk []byte) (types.AccountInfo, error) {
 	defer func() {
 		if err := recover(); err != nil {
-			Pnc.Sugar().Errorf("%v", tools.RecoverError(err))
+			Pnc.Sugar().Errorf("%v", utils.RecoverError(err))
 		}
 	}()
 
