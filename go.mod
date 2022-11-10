@@ -3,7 +3,6 @@ module github.com/kumandra/kumandra-barrel
 go 1.19
 
 require (
-	github.com/kumandra/go-keyring v0.0.0
 	github.com/Nik-U/pbc v0.0.0-20181205041846-3e516ca0c5d6
 	github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce
 	github.com/centrifuge/go-substrate-rpc-client/v4 v4.0.5
@@ -31,6 +30,7 @@ require (
 	github.com/gtank/ristretto255 v0.1.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/kumandra/go-keyring v0.0.0-20221110073420-492bb1da72cf // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mimoo/StrobeGo v0.0.0-20210601165009-122bf33a46e0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
