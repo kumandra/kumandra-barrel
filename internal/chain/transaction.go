@@ -10,7 +10,7 @@ import (
 	"github.com/kumandra/kumandra-barrel/configs"
 	. "github.com/kumandra/kumandra-barrel/internal/logger"
 	"github.com/kumandra/kumandra-barrel/internal/pattern"
-	"github.com/kumandra/kumandra-barrel/tools"
+	"github.com/kumandra/kumandra-barrel/utils"
 
 	gsrpc "github.com/centrifuge/go-substrate-rpc-client/v4"
 	"github.com/centrifuge/go-substrate-rpc-client/v4/signature"

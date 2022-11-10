@@ -13,7 +13,7 @@ import (
 	api "github.com/kumandra/kumandra-barrel/internal/proof/apiv1"
 	"github.com/kumandra/kumandra-barrel/utils"
 
-	"github.com/kumandra/go-keyring"
+	"github.com/kumandra/kumandra-barrel/keyring"
 )
 
 type kvpair struct {
