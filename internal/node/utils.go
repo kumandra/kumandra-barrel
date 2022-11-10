@@ -7,23 +7,23 @@ import (
 	"github.com/kumandra/go-keyring"
 )
 
-func verifysign(pkey, signmsg, sign []byte) (bool, error) {
+func VerifySign(pkey, signmsg, sign []byte) (bool, error) {
 	if len(signmsg) == 0 || len(sign) < 64 {
-		return false, errors.new("wrong signature")
+		return false, errors.New("Wrong signature")
 	}
 
-	ss58, err := utils.encodetoss58(pkey)
+	ss58, err := utils.EncodeToSS58(pkey)
 	if err != nil {
 		return false, err
 	}
 
-	verkr, _ := keyring.fromuri(ss58, keyring.netsubstrate{})
+	verkr, _ := keyring.FromURI(ss58, keyring.NetSubstrate{})
 
 	var sign_array [64]byte
 	for i := 0; i < 64; i++ {
 		sign_array[i] = sign[i]
 	}
 
-	// verify signature
-	return verkr.verify(verkr.signingcontext(signmsg), sign_array), nil
+	// Verify signature
+	return verkr.Verify(verkr.SigningContext(signmsg), sign_array), nil
 }
