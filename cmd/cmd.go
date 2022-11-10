@@ -17,7 +17,7 @@ import (
 	. "github.com/kumandra/kumandra-barrel/internal/logger"
 	"github.com/kumandra/kumandra-barrel/internal/node"
 	"github.com/kumandra/kumandra-barrel/internal/pattern"
-	"github.com/kumandra/kumandra-barrel/tools"
+	"github.com/kumandra/kumandra-barrel/utils"
 
 	"github.com/btcsuite/btcutil/base58"
 	gsrpc "github.com/centrifuge/go-substrate-rpc-client/v4"
@@ -149,7 +149,7 @@ func Command_UpdateAddress() *cobra.Command {
 	cc := &cobra.Command{
 		Use:                   "update_address",
 		Short:                 "Update the miner's access address",
-		Example:               "bucket update_address ip:port",
+		Example:               "barrel update_address ip:port",
 		Run:                   Command_UpdateAddress_Runfunc,
 		DisableFlagsInUseLine: true,
 	}
@@ -174,7 +174,7 @@ func Command_Version_Runfunc(cmd *cobra.Command, args []string) {
 
 // Generate configuration file template
 func Command_Default_Runfunc(cmd *cobra.Command, args []string) {
-	tools.WriteStringtoFile(configs.ConfigFile_Templete, "config_template.toml")
+	utils.WriteStringtoFile(configs.ConfigFile_Templete, "config_template.toml")
 	pwd, err := os.Getwd()
 	if err != nil {
 		fmt.Printf("\x1b[%dm[err]\x1b[0m %v\n", 41, err)
@@ -269,17 +269,17 @@ func register(api *gsrpc.SubstrateAPI) error {
 
 	//Create log directory
 	configs.LogfileDir = filepath.Join(configs.BaseDir, configs.LogfileDir)
-	if err = tools.CreatDirIfNotExist(configs.LogfileDir); err != nil {
+	if err = utils.CreatDirIfNotExist(configs.LogfileDir); err != nil {
 		goto Err
 	}
 	//Create space directory
 	configs.SpaceDir = filepath.Join(configs.BaseDir, configs.SpaceDir)
-	if err = tools.CreatDirIfNotExist(configs.SpaceDir); err != nil {
+	if err = utils.CreatDirIfNotExist(configs.SpaceDir); err != nil {
 		goto Err
 	}
 	//Create file directory
 	configs.FilesDir = filepath.Join(configs.BaseDir, configs.FilesDir)
-	if err = tools.CreatDirIfNotExist(configs.FilesDir); err != nil {
+	if err = utils.CreatDirIfNotExist(configs.FilesDir); err != nil {
 		goto Err
 	}
 
@@ -435,19 +435,19 @@ func Command_Run_Runfunc(cmd *cobra.Command, args []string) {
 	} else {
 		//Create log directory
 		configs.LogfileDir = filepath.Join(configs.BaseDir, configs.LogfileDir)
-		if err = tools.CreatDirIfNotExist(configs.LogfileDir); err != nil {
+		if err = utils.CreatDirIfNotExist(configs.LogfileDir); err != nil {
 			fmt.Printf("\x1b[%dm[err]\x1b[0m Err: %v\n", 41, err)
 			os.Exit(1)
 		}
 		//Create space directory
 		configs.SpaceDir = filepath.Join(configs.BaseDir, configs.SpaceDir)
-		if err = tools.CreatDirIfNotExist(configs.SpaceDir); err != nil {
+		if err = utils.CreatDirIfNotExist(configs.SpaceDir); err != nil {
 			fmt.Printf("\x1b[%dm[err]\x1b[0m Err: %v\n", 41, err)
 			os.Exit(1)
 		}
 		//Create file directory
 		configs.FilesDir = filepath.Join(configs.BaseDir, configs.FilesDir)
-		if err = tools.CreatDirIfNotExist(configs.FilesDir); err != nil {
+		if err = utils.CreatDirIfNotExist(configs.FilesDir); err != nil {
 			fmt.Printf("\x1b[%dm[err]\x1b[0m Err: %v\n", 41, err)
 			os.Exit(1)
 		}
@@ -616,10 +616,10 @@ func Command_UpdateAddress_Runfunc(cmd *cobra.Command, args []string) {
 	if len(os.Args) >= 3 {
 		data := strings.Split(os.Args[2], ":")
 		if len(data) != 2 {
-			log.Printf("\x1b[%dm[err]\x1b[0m You should enter something like 'bucket address ip:port[domain_name]'\n", 41)
+			log.Printf("\x1b[%dm[err]\x1b[0m You should enter something like 'barrel address ip:port[domain_name]'\n", 41)
 			os.Exit(1)
 		}
-		if !tools.IsIPv4(data[0]) {
+		if !utils.IsIPv4(data[0]) {
 			log.Printf("\x1b[%dm[ok]\x1b[0m address error\n", 42)
 			os.Exit(1)
 		}
@@ -650,14 +650,14 @@ func Command_UpdateAddress_Runfunc(cmd *cobra.Command, args []string) {
 		log.Printf("\x1b[%dm[ok]\x1b[0m success\n", 42)
 		os.Exit(0)
 	}
-	log.Printf("\x1b[%dm[err]\x1b[0m You should enter something like 'bucket address ip:port[domain_name]'\n", 41)
+	log.Printf("\x1b[%dm[err]\x1b[0m You should enter something like 'barrel address ip:port[domain_name]'\n", 41)
 	os.Exit(1)
 }
 
 // Update the miner's access address
 func Command_UpdateIncome_Runfunc(cmd *cobra.Command, args []string) {
 	if len(os.Args) >= 3 {
-		pubkey, err := tools.DecodeToKumandraPub(os.Args[2])
+		pubkey, err := utils.DecodeToKumandraPub(os.Args[2])
 		if err != nil {
 			log.Printf("\x1b[%dm[ok]\x1b[0m account error\n", 42)
 			os.Exit(1)
@@ -682,7 +682,7 @@ func Command_UpdateIncome_Runfunc(cmd *cobra.Command, args []string) {
 		log.Printf("\x1b[%dm[ok]\x1b[0m success\n", 42)
 		os.Exit(0)
 	}
-	log.Printf("\x1b[%dm[err]\x1b[0m You should enter something like 'bucket update_income account'\n", 41)
+	log.Printf("\x1b[%dm[err]\x1b[0m You should enter something like 'barrel update_income account'\n", 41)
 	os.Exit(1)
 }
 
@@ -769,7 +769,7 @@ func parseProfile() {
 		os.Exit(1)
 	}
 
-	_, err = tools.GetMountPathInfo(configs.C.MountedPath)
+	_, err = utils.GetMountPathInfo(configs.C.MountedPath)
 	if err != nil {
 		fmt.Printf("\x1b[%dm[err]\x1b[0m '%v' %v\n", 41, configs.C.MountedPath, err)
 		os.Exit(1)
@@ -781,7 +781,7 @@ func parseProfile() {
 		os.Exit(1)
 	}
 
-	addr, err := tools.EncodeToKumandraAddr(acc)
+	addr, err := utils.EncodeToKumandraAddr(acc)
 	if err != nil {
 		fmt.Printf("\x1b[%dm[err]\x1b[0m %v\n", 41, err)
 		os.Exit(1)
