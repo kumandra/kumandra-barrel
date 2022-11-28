@@ -1,2 +1,5 @@
 ## Phase 1
-### WORK IN PROGRESS
+
+## WORK IS IN PROGRESS
+
+![](./images/kumandra-barrel.png)

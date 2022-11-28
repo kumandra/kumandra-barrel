@@ -1,0 +1,3 @@
+- [ ] Implement node management
+- [ ] Write document how to join cluster
+- [ ] Implement API Load-balance
