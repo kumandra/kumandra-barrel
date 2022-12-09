@@ -7,6 +7,6 @@ StashAccount    = ""
 # phrase of the signature account
 ControllerAccount = ""
 # Peer address of the cluster pool leader
-LeaderPeerAdress = ""
+LeaderPeerAdress = "/ip4/192.168.10.1/tcp/9096/ipfs/QmZjSoXUQgJ9tutP1rXjjNYwTrRM9QPhmD9GHVjbtgWxEn"
 # Secret Key of the cluster pool
-SecretKey = ""
+SecretKey = "f6e276d61ad6b382aa3072b67ab1992352f0e6e88c558363143a7cdc87e3c61b"
