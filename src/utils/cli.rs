@@ -2,6 +2,7 @@ use std::process::Command;
 use std::env;
 use crate::utils::bootstrap_peer::bootstrap_peer;
 use crate::utils::start::kumandra_start;
+use crate::utils::create_pool::create_pool;
 
 pub fn kumandra_cli() {
     let args: Vec<_> = env::args().skip(1).collect();
@@ -10,21 +11,14 @@ pub fn kumandra_cli() {
     } else {
         match args[0].as_ref() {
             "create-pool" | "--create-pool" | "-cp" | "cp" => {
-                println!("Creating IPFS Cluster Pool");
-                let secretkey = Command::new("bash")
-                    .args(["-c", "kumandra-swarm-key-gen"])
-                    // .args(["|", "head"])
-                    .output()
-                    .expect("kumandra-swarm-key-gen command failed to start");
-
-                let stdout = String::from_utf8(secretkey.stdout).unwrap();
-
-                let s: Box<str> = stdout.into_boxed_str();
-
-                println!("save the secret key to somewhere safe: {:?}", &s[31..]);
+                create_pool();
             }
             "--secret-key" | "secret-key" | "-sk" | "sk" | "--key" | "key" => {
                 println!("This is the secret key: {}", args[1]);
+                // TODO: Write the secret key to the environment
+            }
+            "--leader-peer" | "leader-peer" | "-lp" | "lp" => {
+                println!("This is the leader peer of the cluster pool: {}", args[1]);
                 // TODO: Write the secret key to the environment
             }
             "--start" | "start" | "-s" | "s"  => {
