@@ -1,0 +1,12 @@
+# The rpc address of the chain node
+chainwss = ""
+# Total space used to store files, the unit is GB
+StorageSpace = 0
+# The address of income account
+StashAccount    = ""
+# phrase of the signature account
+ControllerAccount = ""
+# Peer address of the cluster pool leader
+LeaderPeerAdress = ""
+# Secret Key of the cluster pool
+SecretKey = ""

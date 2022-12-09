@@ -1,0 +1,13 @@
+# The rpc address of the chain node
+chainwss = ""
+# Total space used to store files, the unit is GB
+StorageSpace = 0
+# The address of income account
+StashAccount    = ""
+# phrase of the signature account
+ControllerAccount = ""
+# Secret Key of the cluster pool
+SecretKey = ""
+# Cluster Pool Reward Address
+ClusterAddress = "" # When leader create a cluster pool, he will get a address of the pool, the reward will go to this address and distribute to other member in the pool later
+
