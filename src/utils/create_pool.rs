@@ -23,9 +23,9 @@ pub fn create_pool() {
 
     // jq '.' ~/.ipfs-cluster/identity.json | grep id | awk -F: '{ print $2 }' | tr -d '",'
     let options = ScriptOptions::new();
-    let command = String::from("jq '.' ~/.ipfs-cluster/identity.json | grep id | awk -F: '{ print $2 }' | tr -d '\", '");
+    let peer = String::from("jq '.' ~/.ipfs-cluster/identity.json | grep id | awk -F: '{ print $2 }' | tr -d '\", '");
     let (code, peer_id, error) = run_script!(
-        &command,
+        &peer,
         &vec![],
         &options
     ). unwrap();
@@ -46,16 +46,6 @@ pub fn create_pool() {
     let ipfs_cluster_peer_address = format!("/ip4/{}/tcp/9096/p2p/{}", ip.trim(), peer_id);
 
     // println!("{}", ipfs_cluster_peer_address);
-
-
-    // println!("Generating IPFS Cluster Pool");
-    // let secretkey_command = Command::new("bash")
-    //     .args(["-c", "kumandra-swarm-key-gen"])
-    //     .output()
-    //     .expect("kumandra-swarm-key-gen command failed to start");
-    // let stdout = String::from_utf8(secretkey_command.stdout).unwrap();
-    // let s: Box<str> = stdout.into_boxed_str();
-    // let secret_key = &s[31..];
 
     let options = ScriptOptions::new();
     let secret_key = String::from("jq '.' ~/.ipfs-cluster/service.json | grep secret | awk -F: '{ print $2 }' | tr -d '\", '");

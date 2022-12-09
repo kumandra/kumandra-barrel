@@ -3,6 +3,8 @@ use std::env;
 use crate::utils::bootstrap_peer::bootstrap_peer;
 use crate::utils::start::kumandra_start;
 use crate::utils::create_pool::create_pool;
+use crate::utils::leader_peer::insert_leader_peer;
+use crate::utils::secret_key::insert_secret_key;
 
 pub fn kumandra_cli() {
     let args: Vec<_> = env::args().skip(1).collect();
@@ -14,12 +16,12 @@ pub fn kumandra_cli() {
                 create_pool();
             }
             "--secret-key" | "secret-key" | "-sk" | "sk" | "--key" | "key" => {
-                println!("This is the secret key: {}", args[1]);
-                // TODO: Write the secret key to the environment
+                // println!("This is the secret key: {}", args[1]);
+                insert_secret_key(args[1].to_string());
             }
-            "--leader-peer" | "leader-peer" | "-lp" | "lp" => {
+            "--leader-addr" | "leader-addr" | "-la" | "la" => {
                 println!("This is the leader peer of the cluster pool: {}", args[1]);
-                // TODO: Write the secret key to the environment
+                insert_leader_peer(args[1].to_string());
             }
             "--start" | "start" | "-s" | "s"  => {
                 println!("Starting Pledging Storage to the cluster");
