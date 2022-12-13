@@ -13,7 +13,7 @@ pub fn kumandra_start() {
 
 fn start_ipfs() {
     let options = ScriptOptions::new();
-    let ipfs_start = String::from("systemctl --user --enable --now ipfs");
+    let ipfs_start = String::from("systemctl --user enable ipfs --now");
     // println!("{}", export_key);
     run_script!(
         &ipfs_start,
@@ -27,7 +27,7 @@ fn start_ipfs() {
 fn start_ipfs_cluster() {
     let options = ScriptOptions::new();
     // let export_key = format!("echo export CLUSTER_SECRET={} >> ~/.bashrc", secretkey);
-    let ipfs_cluster_start = String::from("systemctl --user --enable --now ipfs-cluster");
+    let ipfs_cluster_start = String::from("systemctl --user enable ipfs-cluster --now");
     // println!("{}", export_key);
     run_script!(
         &ipfs_cluster_start,
@@ -48,7 +48,24 @@ fn systemd_service() {
 
 
     let options: ScriptOptions = ScriptOptions::new();
-    let ipfs_service = format!(r#"cat <<EOF >> ~/.config/systemd/user/ipfs.service
+//     let ipfs_service = format!(r#"cat <<EOF >> ~/.config/systemd/user/ipfs.service
+// [Unit]
+// Description=IPFS Daemon
+// After=network-online.target
+// StartLimitIntervalSec=500
+// StartLimitBurst=5
+
+// [Service]
+// Restart=on-failure
+// RestartSec=5s
+// Type=simple
+// ExecStart=ipfs daemon
+// User={}
+// [Install]
+// WantedBy=multi-user.target
+// EOF"#, current_user);
+
+    let ipfs_service = String::from(r#"cat <<EOF >> ~/.config/systemd/user/ipfs.service
 [Unit]
 Description=IPFS Daemon
 After=network-online.target
@@ -60,10 +77,9 @@ Restart=on-failure
 RestartSec=5s
 Type=simple
 ExecStart=ipfs daemon
-User={}
 [Install]
 WantedBy=multi-user.target
-EOF"#, current_user);
+EOF"#);
 
 let (_, output, _) = run_script!(
         &ipfs_service,
@@ -74,7 +90,7 @@ let (_, output, _) = run_script!(
     println!("{}", ipfs_service);
 
     let options: ScriptOptions = ScriptOptions::new();
-    let ipfs_cluster_service = format!(r#"cat <<EOF >> ~/.config/systemd/user/ipfs-cluster.service
+    let ipfs_cluster_service = String::from(r#"cat <<EOF >> ~/.config/systemd/user/ipfs-cluster.service
 [Unit]
 Description=IPFS-Cluster Daemon
 Requires=ipfs
@@ -86,10 +102,9 @@ Restart=on-failure
 RestartSec=5s
 Type=simple
 ExecStart=ipfs-cluster-service daemon
-User={}
 [Install]
 WantedBy=multi-user.target
-EOF"#, current_user);
+EOF"#);
 
 let (_, output, _) = run_script!(
         &ipfs_cluster_service,
