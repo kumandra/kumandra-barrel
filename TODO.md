@@ -1,6 +1,8 @@
 - [ ] Implement node management
 - [ ] Write document how to join cluster
 - [ ] Implement API Load-balance
+- [ ] Use Actix Framework to create Rest API for Pinning with --expire-in
+- [ ] Migrate the proof of concept code into more lookable code.
 
 
 ## DEMO 
