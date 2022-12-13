@@ -11,7 +11,7 @@ pub fn insert_secret_key(secretkey: String) {
     // let export_key = format!("echo export CLUSTER_SECRET={} >> ~/.bashrc", secretkey);
     let export_key = format!("echo export CLUSTER_SECRET={} >> ~/.zshrc && echo export CLUSTER_SECRET={} >> ~/.bashrc", secretkey, secret_key2.clone());
     // println!("{}", export_key);
-    let (code, output, error) = run_script!(
+    run_script!(
         &export_key,
         &vec![],
         &options

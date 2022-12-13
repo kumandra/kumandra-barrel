@@ -24,7 +24,7 @@ pub fn create_pool() {
     // jq '.' ~/.ipfs-cluster/identity.json | grep id | awk -F: '{ print $2 }' | tr -d '",'
     let options = ScriptOptions::new();
     let peer = String::from("jq '.' ~/.ipfs-cluster/identity.json | grep id | awk -F: '{ print $2 }' | tr -d '\", '");
-    let (code, peer_id, error) = run_script!(
+    let (_, peer_id, _) = run_script!(
         &peer,
         &vec![],
         &options
@@ -35,7 +35,7 @@ pub fn create_pool() {
 
     let options = ScriptOptions::new();
     let ip = String::from("curl ip.me | tr -d ' '");
-    let (code, ip, error) = run_script!(
+    let (_, ip, _) = run_script!(
         &ip,
         &vec![],
         &options
@@ -49,13 +49,11 @@ pub fn create_pool() {
 
     let options = ScriptOptions::new();
     let secret_key = String::from("jq '.' ~/.ipfs-cluster/service.json | grep secret | awk -F: '{ print $2 }' | tr -d '\", '");
-    let (code, secret_key, error) = run_script!(
+    let (_, secret_key, _) = run_script!(
         &secret_key,
         &vec![],
         &options
     ). unwrap();
-
-
 
     // Pretty Print Message
     println!("

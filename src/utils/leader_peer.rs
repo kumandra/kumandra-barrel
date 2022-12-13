@@ -8,7 +8,7 @@ use run_script::{
 pub fn insert_leader_peer(leader_peer_address: String) {
     let options = ScriptOptions::new();
     let leader_addr_peer = format!("echo {} >> ~/.ipfs-cluster/peerstore", leader_peer_address);
-    let (code, output, error) = run_script!(
+    run_script!(
         &leader_addr_peer,
         &vec![],
         &options

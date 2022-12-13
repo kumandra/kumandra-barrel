@@ -27,14 +27,6 @@ pub fn bootstrap_peer() {
         thread::sleep(ten_millis);
 
     }
-
-   
-        
-
-
-  
-
-
 }
 
 fn ipfs_bootstrap_add(peer: &&str) {
